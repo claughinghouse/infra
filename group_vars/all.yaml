@@ -1,0 +1,22 @@
+# grog.package
+package_list:
+  - name: qemu-guest-agent
+
+# ironicbadger.ansible_users
+users:
+  - username: "{{ default_user_name }}"
+    groups: ['sudo']
+    github_username: "{{ github_user }}"
+  - username: "{{ ci_user }}"
+    groups: ['sudo']
+    ssh_key:
+      - "{{ ci_key }}"
+    github_username: "{{ github_user }}" ## TODO: Update role to not require github username.
+
+# geerlingguy.security
+security_sudoers_passwordless:
+  - "{{ default_user_name }}"
+  - "{{ ci_user }}"
+
+# geerlingguy.ntp
+ntp_timezone: "America/New_York"

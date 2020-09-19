@@ -1,0 +1,14 @@
+---
+# - hosts: all
+#   tasks:
+#     - name: import keys from github
+#       authorized_key:
+#         user: "{{ default_user_name }}"
+#         state: present
+#         key: https://github.com/claughinghouse.keys
+
+#     - name: update all packages
+#       become: true
+#       package:
+#         name: '*'
+#         state: latest
