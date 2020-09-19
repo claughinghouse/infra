@@ -1,0 +1,8 @@
+---
+# This file should be renamed to `vault.yaml` and values updated to suit your environment.
+
+default_user_pass: ###
+default_user_name: ###
+github_user: ###
+ci_user: ###
+ci_key: ###
