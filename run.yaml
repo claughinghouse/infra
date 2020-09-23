@@ -25,15 +25,10 @@
           name: qemu-guest-agent
           enabled: yes
 
-################
-
-
-
-
-
-
-
-  # - hosts: bastion
-  #   roles:
-  #     - role: grog.package
-  #     - role: bastion
+  - hosts: homer
+    vars_files:
+      - 'vars/vault.yaml'
+    roles:
+      - role: geerlingguy.docker
+      - role: geerlingguy.pip
+      - role: homer

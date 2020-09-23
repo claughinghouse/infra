@@ -1,0 +1,21 @@
+---
+- name: create the homer static assets directory
+  file:
+    path: /home/cody/homer
+    state: directory
+
+# - name: Copy file with owner and permissions
+#   copy:
+#     src: /srv/myfiles/foo.conf
+#     dest: /etc/foo.conf
+
+- name: create homer container
+  community.general.docker_container:
+    name: homer
+    image: b4bz/homer:latest
+    state: started
+    restart: true
+    volumes:
+      - /home/{{ default_user_name }}/homer:/www/assets
+    ports:
+      - 8080:8080

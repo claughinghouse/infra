@@ -7,11 +7,14 @@ test:
 bastion:
 	ansible-playbook -b run.yaml --limit bastion --vault-password-file .vault-password
 
+homer:
+	ansible-playbook -b run.yaml --limit homer --vault-password-file .vault-password
+
 update:
 	ansible-playbook update.yaml --limit servers --vault-password-file .vault-password
 
 install:
-	ansible-galaxy install -r requirements.yaml
+	ansible-galaxy install -r requirements.yaml && ansible-galaxy collection install -r requirements.yaml
 
 forceinstall:
 	ansible-galaxy install -r requirements.yaml --force

@@ -1,8 +1,24 @@
 # WIP
 ## Assumptions
-Assumes LXC Container with Ansible user created and ssh key put into authorized_keys
+
+Add a in Ubuntu LXC Container
+
+```shell
+adduser
+```
+
+Copy the authorized key into the folder via curl from GitHub or copy and paste.
+
+Assumes Ubuntu 20.04 VM with Ansible user created and ssh key put into authorized_keys
 
 Assumes passwordless `sudo`. Add `$ansible_username ALL=(ALL) NOPASSWD: ALL` to /etc/sudoers
+
+Simulate failure for debugging.
+
+```console
+- name: debug fail
+  fail:
+```
 # WIP
 
 

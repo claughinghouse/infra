@@ -1,5 +1,12 @@
 ---
-- src: ironicbadger.ansible_users
-- src: grog.package
-- src: geerlingguy.security
-- src: geerlingguy.ntp
+roles:
+  - ironicbadger.ansible_users
+  - grog.package
+  - geerlingguy.security
+  - geerlingguy.ntp
+  - geerlingguy.docker
+  - geerlingguy.pip
+
+
+collections:
+  - community.general

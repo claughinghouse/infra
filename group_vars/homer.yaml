@@ -1,0 +1,9 @@
+---
+# geerlingguy.docker
+docker_users:
+  - '{{ ci_user }}'
+  - '{{ default_user_name }}'
+
+# geerlingguy.pip
+pip_install_packages:
+  - name: docker
