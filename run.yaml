@@ -24,11 +24,3 @@
         systemd:
           name: qemu-guest-agent
           enabled: yes
-
-  - hosts: homer
-    vars_files:
-      - 'vars/vault.yaml'
-    roles:
-      - role: geerlingguy.docker
-      - role: geerlingguy.pip
-      - role: homer
