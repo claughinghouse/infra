@@ -1,5 +1,0 @@
-# grog.package
-package_list:
-  - name: sl
-  - name: mosh
-  - name: ufw

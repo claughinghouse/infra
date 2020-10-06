@@ -24,3 +24,12 @@
         systemd:
           name: qemu-guest-agent
           enabled: yes
+
+  - hosts: bastion
+    vars_files:
+      - 'vars/vault.yaml'
+    roles:
+      - role: grog.package
+      - role: geerlingguy.pip
+      - role: geerlingguy.docker
+      - role: bastion

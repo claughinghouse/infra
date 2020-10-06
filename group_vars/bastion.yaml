@@ -1,0 +1,18 @@
+# grog.package
+package_list:
+  name:
+    - sl
+    - mosh
+    - git
+    - ansible
+
+# geerlingguy.pip
+pip_install_packages:
+  - docker
+  - ansible
+  - pre-commit
+
+# geerlingguy.docker
+docker_users:
+  - '{{ default_user_name }}'
+  - '{{ ci_user }}'

@@ -1,0 +1,25 @@
+---
+  - name: create code container settings directory
+    file:
+      path: /opt/vs-code
+      state: directory
+
+  - name: create git directory
+    file:
+      path: /home/{{ default_user_name }}/git
+      state: directory
+
+  - name: create a code container
+    community.general.docker_container:
+      name: code-1
+      image: linuxserver/code-server:latest
+      volumes:
+        - /home/{{ default_user_name }}/git:/git
+        - /opt/vs-code:/config
+      env:
+        TZ: "America/New_York"
+      ports:
+        - "8443:8443"
+      restart_policy: unless-stopped
+      container_default_behavior: no_defaults
+      state: started
