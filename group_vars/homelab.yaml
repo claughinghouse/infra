@@ -1,0 +1,7 @@
+# grog.package
+package_list:
+  name:
+    - sl
+    - mosh
+    - git
+    - nfs-common

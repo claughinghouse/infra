@@ -20,6 +20,10 @@
           - 10-help-text
         when: ansible_distribution == 'Ubuntu'
 
+  - hosts: colo-vms
+    vars_files:
+      - 'vars/vault.yaml'
+    tasks:
       - name: enable service qemu-guest-agent
         systemd:
           name: qemu-guest-agent
@@ -33,3 +37,25 @@
       - role: geerlingguy.pip
       - role: geerlingguy.docker
       - role: bastion
+
+  - hosts: homelab
+    vars_files:
+      - 'vars/vault.yaml'
+    roles:
+      - role: grog.package
+      - role: geerlingguy.pip
+      - role: geerlingguy.docker
+    tasks:
+      - name: Create a directory if it does not exist
+        file:
+          path: /mnt/nfs
+          state: directory
+          mode: '0777'
+
+      - name: Mount an NFS volume
+        ansible.posix.mount:
+          src: '{{ home_nas_server }}:/nfs'
+          path: /mnt/nfs
+          opts: rw,sync,hard,intr
+          state: mounted
+          fstype: nfs
