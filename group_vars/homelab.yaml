@@ -11,6 +11,7 @@ package_list:
     - jq
     - ca-certificates
     - dbus
+    - unzip
 
 # geerlingguy.pip
 pip_install_packages:
@@ -20,39 +21,3 @@ pip_install_packages:
 docker_users:
   - '{{ default_user_name }}'
   - '{{ ci_user }}'
-
-###
-BINARY_DOCKER: /usr/bin/docker
-DOCKER_REPO: homeassistant
-SERVICE_DOCKER: "docker.service"
-SERVICE_NM: "NetworkManager.service"
-FILE_DOCKER_CONF: "/etc/docker/daemon.json"
-fail:
-FILE_NM_CONF: "/etc/NetworkManager/NetworkManager.conf"
-FILE_NM_CONNECTION: "/etc/NetworkManager/system-connections/default"
-URL_RAW_BASE: "https://raw.githubusercontent.com/home-assistant/supervised-installer/master/files"
-URL_VERSION: "https://version.home-assistant.io/stable.json"
-URL_DOCKER_DAEMON: "{{ URL_RAW_BASE }}/docker_daemon.json"
-URL_NM_CONF: "{{ URL_RAW_BASE }}/NetworkManager.conf"
-URL_NM_CONNECTION: "{{ URL_RAW_BASE }}/system-connection-default"
-URL_HA: "{{ URL_RAW_BASE }}/ha"
-URL_BIN_HASSIO: "{{ URL_RAW_BASE }}/hassio-supervisor"
-URL_BIN_APPARMOR: "{{ URL_RAW_BASE }}/hassio-apparmor"
-URL_SERVICE_HASSIO: "{{ URL_RAW_BASE }}/hassio-supervisor.service"
-URL_SERVICE_APPARMOR: "{{ URL_RAW_BASE }}/hassio-apparmor.service"
-URL_APPARMOR_PROFILE: "https://version.home-assistant.io/apparmor.txt"
-ARCH_REPO:
-  arm: 'armhf-hassio-supervisor'
-  armv6l: 'armhf-hassio-supervisor'
-  armv7l: 'armv7-hassio-supervisor'
-  i386: 'i386-hassio-supervisor'
-  i686: 'i386-hassio-supervisor'
-  x86_64: 'amd64-hassio-supervisor'
-  aarch64: 'aarch64-hassio-supervisor'
-HASSIO_DOCKER: "{{ DOCKER_REPO }}/{{ ARCH_REPO[ansible_architecture] }}"
-# The next five variables needs revision if command line arguments are implemented
-PREFIX: /mnt/nfs/homeassistant                           # =${PREFIX:-/usr}
-SYSCONFDIR: /etc                         # =${SYSCONFDIR:-/etc}
-DATA_SHARE: "{{ PREFIX }}/share/hassio"  # =${DATA_SHARE:-$PREFIX/share/hassio}
-CONFIG: "{{ SYSCONFDIR }}/hassio.json"   # =$SYSCONFDIR/hassio.json
-MACHINE: qemux86-64
