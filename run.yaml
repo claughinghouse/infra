@@ -45,6 +45,7 @@
       - role: grog.package
       - role: geerlingguy.pip
       - role: geerlingguy.docker
+
     tasks:
       - name: Create a directory if it does not exist
         file:
@@ -52,10 +53,24 @@
           state: directory
           mode: '0777'
 
+      - name: Create a directory if it does not exist
+        file:
+          path: /usr/share/hassio
+          state: directory
+          mode: '0777'
+
       - name: Mount an NFS volume
         ansible.posix.mount:
           src: '{{ home_nas_server }}:/nfs'
           path: /mnt/nfs
+          opts: rw,sync,hard,intr
+          state: mounted
+          fstype: nfs
+
+      - name: Mount an HomeAssistant NFS volume
+        ansible.posix.mount:
+          src: '{{ home_nas_server }}:/nfs/homeassistant/share/hassio'
+          path: /usr/share/hassio
           opts: rw,sync,hard,intr
           state: mounted
           fstype: nfs
