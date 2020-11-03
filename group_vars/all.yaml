@@ -1,7 +1,3 @@
-# grog.package
-package_list:
-  - name: qemu-guest-agent
-
 # ironicbadger.ansible_users
 users:
   - username: "{{ default_user_name }}"

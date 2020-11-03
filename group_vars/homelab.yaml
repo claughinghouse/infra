@@ -4,14 +4,18 @@ package_list:
     - sl
     - mosh
     - git
-    - ansible
-    - qemu-guest-agent
+    - tmux
+    - nfs-common
+    - network-manager
+    - avahi-daemon
+    - jq
+    - ca-certificates
+    - dbus
+    - unzip
 
 # geerlingguy.pip
 pip_install_packages:
   - docker
-  - ansible
-  - pre-commit
 
 # geerlingguy.docker
 docker_users:
