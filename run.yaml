@@ -23,11 +23,8 @@
   - hosts: colo-vms
     vars_files:
       - 'vars/vault.yaml'
-    tasks:
-      - name: enable service qemu-guest-agent
-        systemd:
-          name: qemu-guest-agent
-          enabled: yes
+    roles:
+      - role: grog.package
 
   - hosts: bastion
     vars_files:

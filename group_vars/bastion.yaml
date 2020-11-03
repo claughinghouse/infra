@@ -5,6 +5,7 @@ package_list:
     - mosh
     - git
     - ansible
+    - qemu-guest-agent
 
 # geerlingguy.pip
 pip_install_packages:

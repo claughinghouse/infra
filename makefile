@@ -11,7 +11,7 @@ ubuntu:
 	ansible-playbook -b run.yaml --limit ubuntu --vault-password-file .vault-password
 
 update:
-	ansible-playbook update.yaml --limit servers --vault-password-file .vault-password
+	ansible-playbook update.yaml --vault-password-file .vault-password
 
 install:
 	ansible-galaxy install -r requirements.yaml && ansible-galaxy collection install -r requirements.yaml
