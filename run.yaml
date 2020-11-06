@@ -57,3 +57,21 @@
           opts: rw,sync,hard,intr
           state: mounted
           fstype: nfs
+
+  - hosts: mariadb
+    vars_files:
+      - 'vars/vault.yaml'
+    roles:
+      - role: grog.package
+      - role: geerlingguy.pip
+      - role: geerlingguy.docker
+      - role: mariadb
+
+  - hosts: resilio
+    vars_files:
+      - 'vars/vault.yaml'
+    roles:
+      - role: grog.package
+      - role: geerlingguy.pip
+      - role: geerlingguy.docker
+      - role: resilio

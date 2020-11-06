@@ -7,6 +7,12 @@ test:
 bastion:
 	ansible-playbook -b run.yaml --limit bastion --vault-password-file .vault-password
 
+mariadb:
+	ansible-playbook -b run.yaml --limit mariadb --vault-password-file .vault-password
+
+resilio:
+	ansible-playbook -b run.yaml --limit resilio --vault-password-file .vault-password
+
 ubuntu:
 	ansible-playbook -b run.yaml --limit ubuntu --vault-password-file .vault-password
 
@@ -17,7 +23,7 @@ install:
 	ansible-galaxy install -r requirements.yaml && ansible-galaxy collection install -r requirements.yaml
 
 forceinstall:
-	ansible-galaxy install -r requirements.yaml --force
+	ansible-galaxy install -r requirements.yaml --force && ansible-galaxy collection install -r requirements.yaml --force
 
 decrypt:
 	ansible-vault decrypt --vault-password-file .vault-password vars/vault.yaml

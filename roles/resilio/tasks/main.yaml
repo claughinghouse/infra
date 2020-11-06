@@ -1,0 +1,53 @@
+---
+  - name: create resilio container directory on cephfs
+    file:
+      path: /mnt/cephfs/resilio
+      state: directory
+
+  - name: copy rundeck files
+    copy: src=../files/{{ item }} dest=/etc/ceph/
+    with_items:
+      - ceph.client.admin.keyring
+      - ceph.conf
+
+  - name: mount an cephfs
+    ansible.posix.mount:
+      src: '{{ cephfs_mount_src }}'
+      path: /mnt/cephfs/resilio
+      state: mounted
+      opts: '{{ cephfs_mount_opts }}'
+      fstype: ceph
+
+  - name: create resilio container directory on cephfs
+    file:
+      path: /mnt/cephfs/resilio/config
+      state: directory
+
+  - name: create resilio container directory on cephfs
+    file:
+      path: /mnt/cephfs/resilio/downloads
+      state: directory
+
+  - name: create resilio container directory on cephfs
+    file:
+      path: /mnt/cephfs/resilio/sync
+      state: directory
+
+  - name: create a resilio sync container
+    community.general.docker_container:
+      name: resilio-1
+      image: linuxserver/resilio-sync:latest
+      volumes:
+        - /mnt/cephfs/resilio/config:/config
+        - /mnt/cephfs/resilio/downloads:/downloads
+        - /mnt/cephfs/resilio/sync:/sync
+      env:
+        TZ: 'America/New_York'
+        PUID: '1000'
+        GUID: '1000'
+      ports:
+        - '8888:8888'
+        - '55555:55555'
+      restart_policy: unless-stopped
+      container_default_behavior: no_defaults
+      state: started
