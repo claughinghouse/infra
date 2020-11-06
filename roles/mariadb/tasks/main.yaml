@@ -1,0 +1,29 @@
+---
+  - name: create mariadb container database directory
+    file:
+      path: /opt/mariadb/databases
+      state: directory
+
+  - name: create mariadb container config directory
+    file:
+      path: /opt/mariadb/config
+      state: directory
+
+  - name: create a mariadb container
+    community.general.docker_container:
+      name: mariadb-1
+      image: linuxserver/mariadb:latest
+      volumes:
+        - /opt/mariadb/databases:/config/databases
+        - /opt/mariadb/config:/config
+      env:
+        TZ: 'America/New_York'
+        DATADIR: '/config/databases'
+        LANG: 'en_US.UTF-8'
+        LANGUAGE: 'en_US.UTF-8'
+        MYSQL_DIR: '/config'
+      ports:
+        - "3306:3306"
+      restart_policy: unless-stopped
+      container_default_behavior: no_defaults
+      state: started

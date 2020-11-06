@@ -1,0 +1,46 @@
+[global]
+	 auth_client_required = cephx
+	 auth_cluster_required = cephx
+	 auth_service_required = cephx
+	 cluster_network = IP.ADD.RES.SS
+	 fsid = 0c2bb31c-8218-4782-80fe-b521328cad96
+	 mon_allow_pool_delete = true
+	 mon_host = mon1 mon2 mon3
+	 osd_pool_default_min_size = 2
+	 osd_pool_default_size = 3
+	 public_network = IP.ADD.RES.SS
+
+[client]
+	 keyring = /etc/ceph/$cluster.$name.keyring
+
+[mds]
+	 keyring = /var/lib/ceph/mds/ceph-$id/keyring
+	 mds_standby_replay = true
+
+[mds.1]
+	 host = 1
+	 mds standby for name = mds
+
+[mds.2]
+	 host = 2
+	 mds_standby_for_name = mds
+
+[mds.3]
+	 host = 3
+	 mds_standby_for_name = mds
+
+[mds.4]
+	 host = 4
+	 mds_standby_for_name = mds
+
+[mon.1]
+	 public_addr = IP.ADD.RES.SS
+
+[mon.pve2]
+	 public_addr = IP.ADD.RES.SS
+
+[mon.pve3]
+	 public_addr = IP.ADD.RES.SS
+
+[mon.pve4]
+	 public_addr = IP.ADD.RES.SS

@@ -103,3 +103,7 @@ crash.log
 galaxy_roles
 .vault-password
 # vault.yaml
+
+# Ignore Ceph config files
+*.keyring
+*.conf
