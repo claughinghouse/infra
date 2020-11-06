@@ -5,7 +5,7 @@
       state: directory
 
   - name: copy rundeck files
-    copy: src=../files/{{ item }} dest=/etc/ceph/
+    copy: src=../../../files/{{ item }} dest=/etc/ceph/
     with_items:
       - ceph.client.admin.keyring
       - ceph.conf
