@@ -4,15 +4,15 @@
       path: /mnt/cephfs/resilio
       state: directory
 
-  - name: copy rundeck files
-    copy: src=../files/{{ item }} dest=/etc/ceph/
+  - name: copy ceph files
+    copy: src=../../../files/{{ item }} dest=/etc/ceph/
     with_items:
       - ceph.client.admin.keyring
       - ceph.conf
 
   - name: mount an cephfs
     ansible.posix.mount:
-      src: '{{ cephfs_mount_src }}'
+      src: '{{ cephfs_mount_src_resilio }}'
       path: /mnt/cephfs/resilio
       state: mounted
       opts: '{{ cephfs_mount_opts }}'

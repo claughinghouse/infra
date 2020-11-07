@@ -75,3 +75,12 @@
       - role: geerlingguy.pip
       - role: geerlingguy.docker
       - role: resilio
+
+  - hosts: syncthing
+    vars_files:
+      - 'vars/vault.yaml'
+    roles:
+      - role: grog.package
+      - role: geerlingguy.pip
+      - role: geerlingguy.docker
+      - role: syncthing
