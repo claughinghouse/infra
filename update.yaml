@@ -9,6 +9,12 @@
         state: present
         key: https://github.com/claughinghouse.keys
 
+    - name: import keys from github
+      authorized_key:
+        user: "{{ ci_user }}"
+        state: present
+        key: https://github.com/claughinghouse.keys
+
     - name: update all packages
       become: true
       package:

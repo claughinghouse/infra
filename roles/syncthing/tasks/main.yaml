@@ -1,0 +1,48 @@
+---
+  - name: create syncthing container directory on localhost
+    file:
+      path: /mnt/cephfs/syncthing
+      state: directory
+
+  - name: copy ceph files
+    copy: src=../files/{{ item }} dest=/etc/ceph/
+    with_items:
+      - ceph.client.admin.keyring
+      - ceph.conf
+
+  - name: mount cephfs
+    ansible.posix.mount:
+      src: '{{ cephfs_mount_src_syncthing }}'
+      path: /mnt/cephfs/syncthing
+      state: mounted
+      opts: '{{ cephfs_mount_opts }}'
+      fstype: ceph
+
+  - name: create syncthing container directory on cephfs
+    file:
+      path: /mnt/cephfs/syncthing/config
+      state: directory
+
+  - name: create syncthing container directory on cephfs
+    file:
+      path: /mnt/cephfs/syncthing/data
+      state: directory
+
+  - name: create a syncthing sync container
+    community.general.docker_container:
+      name: syncthing-1
+      image: linuxserver/syncthing:latest
+      volumes:
+        - /mnt/cephfs/syncthing/config:/config
+        - /mnt/cephfs/syncthing/data:/data
+      env:
+        TZ: 'America/New_York'
+        PUID: '1000'
+        GUID: '1000'
+      ports:
+        - '8384:8384'
+        - '22000:22000'
+        - '21027:21027/udp'
+      restart_policy: unless-stopped
+      container_default_behavior: no_defaults
+      state: started

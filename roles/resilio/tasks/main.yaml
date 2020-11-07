@@ -4,7 +4,7 @@
       path: /mnt/cephfs/resilio
       state: directory
 
-  - name: copy rundeck files
+  - name: copy ceph files
     copy: src=../../../files/{{ item }} dest=/etc/ceph/
     with_items:
       - ceph.client.admin.keyring
