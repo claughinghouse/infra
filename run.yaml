@@ -84,3 +84,12 @@
       - role: geerlingguy.pip
       - role: geerlingguy.docker
       - role: syncthing
+
+  - hosts: prometheus
+    vars_files:
+      - 'vars/vault.yaml'
+    roles:
+      - role: grog.package
+      - role: geerlingguy.pip
+      - role: geerlingguy.docker
+      - role: prometheus

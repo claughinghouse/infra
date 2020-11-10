@@ -16,6 +16,9 @@ resilio:
 syncthing:
 	ansible-playbook -b run.yaml --limit syncthing --vault-password-file .vault-password
 
+prometheus:
+	ansible-playbook -b run.yaml --limit prometheus --vault-password-file .vault-password
+
 ubuntu:
 	ansible-playbook -b run.yaml --limit ubuntu --vault-password-file .vault-password
 
