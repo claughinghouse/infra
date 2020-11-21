@@ -19,6 +19,9 @@ syncthing:
 influxdb:
 	ansible-playbook -b run.yaml --limit influxdb --vault-password-file .vault-password
 
+nginx:
+	ansible-playbook -b run.yaml --limit nginx --vault-password-file .vault-password
+
 ubuntu:
 	ansible-playbook -b run.yaml --limit ubuntu --vault-password-file .vault-password
 

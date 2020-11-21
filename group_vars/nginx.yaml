@@ -1,0 +1,20 @@
+---
+# grog.package
+package_list:
+  name:
+    - sl
+    - mosh
+    - qemu-guest-agent
+
+# geerlingguy.pip
+pip_install_packages:
+  - docker
+
+# geerlingguy.docker
+docker_users:
+  - '{{ default_user_name }}'
+  - '{{ ci_user }}'
+
+# Mariadb specific usernames and passwords
+nginx_proxy_username: '{{ nginx_proxy_username }}'
+nginx_proxy_password: '{{ nginx_proxy_password }}'
