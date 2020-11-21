@@ -1,0 +1,5 @@
+---
+# Mariadb common settings
+login_host: '{{ mariadb_hostname }}'
+login_user: '{{ mysql_user }}'
+login_password: '{{ mysql_root_password }}'
