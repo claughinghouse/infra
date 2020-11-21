@@ -16,6 +16,9 @@ resilio:
 syncthing:
 	ansible-playbook -b run.yaml --limit syncthing --vault-password-file .vault-password
 
+influxdb:
+	ansible-playbook -b run.yaml --limit influxdb --vault-password-file .vault-password
+
 ubuntu:
 	ansible-playbook -b run.yaml --limit ubuntu --vault-password-file .vault-password
 

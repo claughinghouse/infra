@@ -8,8 +8,16 @@ package_list:
 # geerlingguy.pip
 pip_install_packages:
   - docker
+  - PyMySQL
 
 # geerlingguy.docker
 docker_users:
   - '{{ default_user_name }}'
   - '{{ ci_user }}'
+
+# Mariadb specific usernames and passwords
+nginx_proxy_username: '{{ nginx_proxy_username }}'
+nginx_proxy_password: '{{ nginx_proxy_password }}'
+
+homeassistant_username: '{{ homeassistant_username }}'
+homeassistant_password: '{{ homeassistant_password }}'
