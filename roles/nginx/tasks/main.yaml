@@ -1,0 +1,36 @@
+---
+  - name: create nginx proxy container config directory
+    file:
+      path: /opt/nginx-proxy-manager/letsencrypt
+      state: directory
+
+  - name: create nginx container config directory
+    file:
+      path: /opt/nginx-proxy-manager/data
+      state: directory
+
+  - name: create a mariadb container
+    community.general.docker_container:
+      name: nginx-proxy-manager-1
+      image: jc21/nginx-proxy-manager:latest
+      volumes:
+        - /opt/nginx-proxy-manager/data:/data
+        - /opt/nginx-proxy-manager/letsencrypt:/etc/letsencrypt
+      env:
+        DB_MYSQL_HOST: 'mariadb'
+        DB_MYSQL_PORT: '3306'
+        DB_MYSQL_USER: '{{ nginx_proxy_username }}'
+        DB_MYSQL_PASSWORD: '{{ nginx_proxy_password }}'
+        DB_MYSQL_NAME: 'nginx_proxy'
+        DISABLE_IPV6: 'true'
+      ports:
+        - '80:80'
+        - '443:443'
+        - '81:81'
+      log_driver: json-file
+      log_options:
+        max-size: 10m
+        max-file: '5'
+      restart_policy: unless-stopped
+      container_default_behavior: no_defaults
+      state: started
