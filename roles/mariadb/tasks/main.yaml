@@ -22,8 +22,42 @@
         LANG: 'en_US.UTF-8'
         LANGUAGE: 'en_US.UTF-8'
         MYSQL_DIR: '/config'
+        MYSQL_ROOT_PASSWORD: '{{ mariadb_root_password }}'
+        MYSQL_USER: '{{ mariadb_user }}'
+        MYSQL_PASSWORD: '{{ mariadb_password }}'
       ports:
         - "3306:3306"
       restart_policy: unless-stopped
       container_default_behavior: no_defaults
       state: started
+
+  - name: delete anonymous user accounts
+    community.mysql.mysql_user:
+      name: ''
+      host_all: yes
+      state: absent
+
+  - name: create nginx proxy db
+    community.mysql.mysql_db:
+      name:
+        - nginx_proxy
+        - homeassistant
+      state: present
+
+  - name: create nginx_proxy user
+    community.mysql.mysql_user:
+      name: '{{ nginx_proxy_username }}'
+      password: '{{ nginx_proxy_password }}'
+      priv: 'nginx_proxy.*:ALL'
+      host: '%'
+      no_log: true
+      state: present
+
+  - name: create homeassistant user
+    community.mysql.mysql_user:
+      name: '{{ homeassistant_username }}'
+      password: '{{ homeassistant_password }}'
+      priv: 'homeassistant.*:ALL'
+      host: '%'
+      no_log: true
+      state: present
