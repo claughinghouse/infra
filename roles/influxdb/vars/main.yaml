@@ -1,0 +1,5 @@
+---
+# Influxdb common settings
+hostname: '{{ influxdb_host }}'
+username: '{{ influxdb_admin_user }}'
+password: '{{ influxdb_admin_password }}'

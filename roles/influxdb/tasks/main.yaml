@@ -37,8 +37,8 @@
         - /mnt/cephfs/influxdb/data:/var/lib/influxdb
       env:
         TZ: 'America/New_York'
-        PUID: '1000'
-        GUID: '1000'
+        INFLUXDB_ADMIN_USER: '{{ influxdb_admin_user }}'
+        INFLUXDB_ADMIN_PASSWORD: '{{ influxdb_admin_password }}'
       ports:
         - '8086:8086'
         - '2003:2003'
@@ -49,3 +49,7 @@
       restart_policy: unless-stopped
       container_default_behavior: no_defaults
       state: started
+
+  - name: Create homeassistant database
+    community.general.influxdb_database:
+        database_name: 'homeassistant'
