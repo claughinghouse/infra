@@ -1,0 +1,17 @@
+# grog.package
+package_list:
+  name:
+    - sl
+    - mosh
+    - qemu-guest-agent
+    - ceph-common
+    - ceph-fuse
+
+# geerlingguy.pip
+pip_install_packages:
+  - docker
+
+# geerlingguy.docker
+docker_users:
+  - '{{ default_user_name }}'
+  - '{{ ci_user }}'

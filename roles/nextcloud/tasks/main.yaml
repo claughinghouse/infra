@@ -1,0 +1,40 @@
+---
+  - name: create nextcloud container directory on cephfs
+    file:
+      path: /mnt/cephfs/nextcloud
+      state: directory
+
+  - name: copy ceph files
+    copy: src=../../../files/{{ item }} dest=/etc/ceph/
+    with_items:
+      - ceph.client.admin.keyring
+      - ceph.conf
+
+  - name: mount cephfs
+    ansible.posix.mount:
+      src: '{{ cephfs_mount_src_nextcloud }}'
+      path: /mnt/cephfs/nextcloud
+      state: mounted
+      opts: '{{ cephfs_mount_opts }}'
+      fstype: ceph
+
+  - name: create nextcloud container directory on cephfs
+    file:
+      path: /mnt/cephfs/nextcloud/config
+      state: directory
+
+  - name: create a nextcloud sync container
+    community.general.docker_container:
+      name: nextcloud-1
+      image: nextcloud:latest
+      volumes:
+        - /mnt/cephfs/nextcloud/config:/var/www/html
+      ports:
+        - '8080:80'
+      log_driver: json-file
+      log_options:
+        max-size: 10m
+        max-file: '5'
+      restart_policy: unless-stopped
+      container_default_behavior: no_defaults
+      state: started
