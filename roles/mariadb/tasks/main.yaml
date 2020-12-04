@@ -27,6 +27,10 @@
         MYSQL_PASSWORD: '{{ mariadb_password }}'
       ports:
         - "3306:3306"
+      log_driver: json-file
+      log_options:
+        max-size: 10m
+        max-file: '5'
       restart_policy: unless-stopped
       container_default_behavior: no_defaults
       state: started
@@ -42,6 +46,7 @@
       name:
         - nginx_proxy
         - homeassistant
+        - nextcloud
       state: present
 
   - name: create nginx_proxy user
@@ -50,7 +55,6 @@
       password: '{{ nginx_proxy_password }}'
       priv: 'nginx_proxy.*:ALL'
       host: '%'
-      no_log: true
       state: present
 
   - name: create homeassistant user
@@ -59,5 +63,12 @@
       password: '{{ homeassistant_password }}'
       priv: 'homeassistant.*:ALL'
       host: '%'
-      no_log: true
+      state: present
+
+  - name: create nextcloud user
+    community.mysql.mysql_user:
+      name: '{{ nextcloud_username }}'
+      password: '{{ nextcloud_password }}'
+      priv: 'nextcloud.*:ALL'
+      host: '%'
       state: present

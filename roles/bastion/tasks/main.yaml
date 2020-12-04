@@ -20,6 +20,10 @@
         TZ: "America/New_York"
       ports:
         - "8443:8443"
+      log_driver: json-file
+      log_options:
+        max-size: 10m
+        max-file: '5'
       restart_policy: unless-stopped
       container_default_behavior: no_defaults
       state: started
