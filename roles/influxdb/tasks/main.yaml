@@ -55,7 +55,16 @@
     community.general.influxdb_database:
         database_name: 'homeassistant'
 
+  - name: create pfsense database
+    community.general.influxdb_database:
+        database_name: 'pfsense'
+
   - name: create homeassistant influxdb user
     community.general.influxdb_user:
       user_name: '{{ homeassistant_influxdb_username }}'
       user_password: '{{ homeassistant_influxdb_password }}'
+
+  - name: create pfsese influxdb user
+    community.general.influxdb_user:
+      user_name: '{{ pfsense_influxdb_username }}'
+      user_password: '{{ pfsense_influxdb_password }}'
