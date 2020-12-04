@@ -40,8 +40,9 @@
         INFLUXDB_ADMIN_USER: '{{ influxdb_admin_user }}'
         INFLUXDB_ADMIN_PASSWORD: '{{ influxdb_admin_password }}'
       ports:
-        - '8086:8086'
         - '2003:2003'
+        - '8088:8088'
+        - '8086:8086'
       log_driver: json-file
       log_options:
         max-size: 10m
@@ -50,6 +51,11 @@
       container_default_behavior: no_defaults
       state: started
 
-  - name: Create homeassistant database
+  - name: create homeassistant database
     community.general.influxdb_database:
         database_name: 'homeassistant'
+
+  - name: create homeassistant influxdb user
+    community.general.influxdb_user:
+      user_name: '{{ homeassistant_influxdb_username }}'
+      user_password: '{{ homeassistant_influxdb_password }}'
