@@ -37,15 +37,34 @@
         - /mnt/cephfs/influxdb/data:/var/lib/influxdb
       env:
         TZ: 'America/New_York'
-        PUID: '1000'
-        GUID: '1000'
+        INFLUXDB_ADMIN_USER: '{{ influxdb_admin_user }}'
+        INFLUXDB_ADMIN_PASSWORD: '{{ influxdb_admin_password }}'
       ports:
-        - '8086:8086'
         - '2003:2003'
+        - '8088:8088'
+        - '8086:8086'
       log_driver: json-file
       log_options:
         max-size: 10m
-        max-file: 5
+        max-file: '5'
       restart_policy: unless-stopped
       container_default_behavior: no_defaults
       state: started
+
+  - name: create homeassistant database
+    community.general.influxdb_database:
+        database_name: 'homeassistant'
+
+  - name: create pfsense database
+    community.general.influxdb_database:
+        database_name: 'pfsense'
+
+  - name: create homeassistant influxdb user
+    community.general.influxdb_user:
+      user_name: '{{ homeassistant_influxdb_username }}'
+      user_password: '{{ homeassistant_influxdb_password }}'
+
+  - name: create pfsese influxdb user
+    community.general.influxdb_user:
+      user_name: '{{ pfsense_influxdb_username }}'
+      user_password: '{{ pfsense_influxdb_password }}'

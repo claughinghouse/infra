@@ -22,6 +22,9 @@ influxdb:
 nginx:
 	ansible-playbook -b run.yaml --limit nginx --vault-password-file .vault-password
 
+nextcloud:
+	ansible-playbook -b run.yaml --limit nextcloud --vault-password-file .vault-password
+
 ubuntu:
 	ansible-playbook -b run.yaml --limit ubuntu --vault-password-file .vault-password
 
