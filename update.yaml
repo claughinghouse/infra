@@ -20,3 +20,11 @@
       package:
         name: '*'
         state: latest
+
+    - name: prune everything
+      community.general.docker_prune:
+        containers: yes
+        images: yes
+        networks: yes
+        volumes: yes
+        builder_cache: yes
