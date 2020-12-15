@@ -12,6 +12,7 @@ package_list:
     - ca-certificates
     - dbus
     - unzip
+    - ffmpeg
 
 # geerlingguy.pip
 pip_install_packages:
