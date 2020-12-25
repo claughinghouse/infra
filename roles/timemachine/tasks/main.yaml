@@ -20,11 +20,6 @@
 
   - name: create timemachine container directory on cephfs
     file:
-      path: /mnt/cephfs/timemachine/config
-      state: directory
-
-  - name: create timemachine container directory on cephfs
-    file:
       path: /mnt/cephfs/timemachine/data
       state: directory
 
