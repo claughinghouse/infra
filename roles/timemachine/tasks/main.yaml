@@ -1,0 +1,50 @@
+---
+  - name: create timemachine container directory on localhost
+    file:
+      path: /mnt/cephfs/timemachine
+      state: directory
+
+  - name: copy ceph files
+    copy: src=../files/{{ item }} dest=/etc/ceph/
+    with_items:
+      - ceph.client.admin.keyring
+      - ceph.conf
+
+  - name: mount cephfs
+    ansible.posix.mount:
+      src: '{{ cephfs_mount_src_timemachine }}'
+      path: /mnt/cephfs/timemachine
+      state: mounted
+      opts: '{{ cephfs_mount_opts }}'
+      fstype: ceph
+
+  - name: create timemachine container directory on cephfs
+    file:
+      path: /mnt/cephfs/timemachine/config
+      state: directory
+
+  - name: create timemachine container directory on cephfs
+    file:
+      path: /mnt/cephfs/timemachine/data
+      state: directory
+
+  - name: create a syncthing sync container
+    community.general.docker_container:
+      name: timemachine-1
+      image: mbentley/timemachine:latest
+      volumes:
+        - /mnt/cephfs/timemachine/data:/opt/timemachine
+      env:
+        VOLUME_SIZE_LIMIT: '1 T'
+      ports:
+        - '137:137/udp'
+        - '138:138/udp'
+        - '139:139'
+        - '445:445'
+      log_driver: json-file
+      log_options:
+        max-size: 10m
+        max-file: '5'
+      restart_policy: unless-stopped
+      container_default_behavior: no_defaults
+      state: started
