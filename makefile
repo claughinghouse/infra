@@ -28,6 +28,9 @@ nextcloud:
 timemachine:
 	ansible-playbook -b run.yaml --limit timemachine --vault-password-file .vault-password
 
+netboot:
+	ansible-playbook -b run.yaml --limit netboot --vault-password-file .vault-password
+
 ubuntu:
 	ansible-playbook -b run.yaml --limit ubuntu --vault-password-file .vault-password
 
