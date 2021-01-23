@@ -32,6 +32,7 @@
     community.general.docker_container:
       name: influxdb-1
       image: influxdb
+      pull: true
       volumes:
         - /mnt/cephfs/influxdb/config/influxdb.conf:/etc/influxdb/influxdb.conf:ro
         - /mnt/cephfs/influxdb/data:/var/lib/influxdb

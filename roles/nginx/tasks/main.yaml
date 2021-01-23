@@ -13,6 +13,7 @@
     community.general.docker_container:
       name: nginx-proxy-manager-1
       image: jc21/nginx-proxy-manager:latest
+      pull: true
       volumes:
         - /opt/nginx-proxy-manager/data:/data
         - /opt/nginx-proxy-manager/letsencrypt:/etc/letsencrypt
