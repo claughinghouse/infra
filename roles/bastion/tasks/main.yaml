@@ -13,6 +13,7 @@
     community.general.docker_container:
       name: code-1
       image: linuxserver/code-server:latest
+      pull: true
       volumes:
         - /home/{{ default_user_name }}/git:/git
         - /opt/vs-code:/config

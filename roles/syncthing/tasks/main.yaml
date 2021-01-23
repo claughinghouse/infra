@@ -32,6 +32,7 @@
     community.general.docker_container:
       name: syncthing-1
       image: linuxserver/syncthing:latest
+      pull: true
       volumes:
         - /mnt/cephfs/syncthing/config:/config
         - /mnt/cephfs/syncthing/data:/data

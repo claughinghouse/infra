@@ -13,6 +13,7 @@
     community.general.docker_container:
       name: mariadb-1
       image: linuxserver/mariadb:latest
+      pull: true
       volumes:
         - /opt/mariadb/databases:/config/databases
         - /opt/mariadb/config:/config
@@ -34,12 +35,6 @@
       restart_policy: unless-stopped
       container_default_behavior: no_defaults
       state: started
-
-  - name: delete anonymous user accounts
-    community.mysql.mysql_user:
-      name: ''
-      host_all: yes
-      state: absent
 
   - name: create nginx proxy db
     community.mysql.mysql_db:

@@ -27,6 +27,7 @@
     community.general.docker_container:
       name: timemachine-1
       image: mbentley/timemachine:latest
+      pull: true
       volumes:
         - /mnt/cephfs/timemachine/data:/opt/timemachine
       env:

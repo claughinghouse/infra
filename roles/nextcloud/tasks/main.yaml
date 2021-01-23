@@ -27,6 +27,7 @@
     community.general.docker_container:
       name: nextcloud-1
       image: nextcloud:latest
+      pull: true
       volumes:
         - /mnt/cephfs/nextcloud/config:/var/www/html
       ports:

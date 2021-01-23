@@ -37,6 +37,7 @@
     community.general.docker_container:
       name: resilio-1
       image: linuxserver/resilio-sync:latest
+      pull: true
       volumes:
         - /mnt/cephfs/resilio/config:/config
         - /mnt/cephfs/resilio/downloads:/downloads
