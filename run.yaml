@@ -112,7 +112,6 @@
       - role: geerlingguy.docker
       - role: nextcloud
 
-
   - hosts: timemachine
     vars_files:
       - 'vars/vault.yaml'
@@ -121,3 +120,12 @@
       - role: geerlingguy.pip
       - role: geerlingguy.docker
       - role: timemachine
+
+  - hosts: restic
+    vars_files:
+      - 'vars/vault.yaml'
+    roles:
+      - role: grog.package
+      - role: geerlingguy.pip
+      - role: geerlingguy.docker
+      - role: restic

@@ -1,0 +1,49 @@
+---
+  - name: create restic container directory on localhost
+    file:
+      path: /mnt/cephfs/restic
+      state: directory
+
+  - name: copy ceph files
+    copy: src=../files/{{ item }} dest=/etc/ceph/
+    with_items:
+      - ceph.client.admin.keyring
+      - ceph.conf
+
+  - name: mount cephfs
+    ansible.posix.mount:
+      src: '{{ cephfs_mount_src_restic }}'
+      path: /mnt/cephfs/restic
+      state: mounted
+      opts: '{{ cephfs_mount_opts }}'
+      fstype: ceph
+
+  - name: create a restic container
+    community.general.docker_container:
+      name: restic-1
+      image: lobaro/restic-backup-docker
+      pull: true
+      volumes:
+        - /mnt/cephfs/restic:/data:ro
+      env:
+        B2_ACCOUNT_ID: '{{ b2_account_id }}'
+        B2_ACCOUNT_KEY: '{{ b2_account_key }}'
+        RESTIC_REPOSITORY: '{{ restic_repository }}'
+        RESTIC_JOB_ARGS: '--limit-upload 500 --keep-within 0y6m0d0h --exclude=/data/influxdb/ --exclude=/data/nextcloud/'
+        RESTIC_PASSWORD: '{{ restic_password }}'
+        BACKUP_CRON: '0 */6 * * *'
+# docker exec -d restic-1 restic backup /data --limit-upload 9000 --exclude=/data/influxdb/ --exclude=/data/nextcloud/ --exclude=/data/resilio/config/
+        # TZ: 'America/New_York'
+        # PUID: '1000'
+        # GUID: '1000'
+      # ports:
+      #   - '8384:8384'
+      #   - '22000:22000'
+      #   - '21027:21027/udp'
+      log_driver: json-file
+      log_options:
+        max-size: 10m
+        max-file: '5'
+      restart_policy: unless-stopped
+      container_default_behavior: no_defaults
+      state: started
