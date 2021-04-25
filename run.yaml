@@ -129,3 +129,12 @@
       - role: geerlingguy.pip
       - role: geerlingguy.docker
       - role: restic
+
+  - hosts: docker-registry
+    vars_files:
+      - 'vars/vault.yaml'
+    roles:
+      - role: grog.package
+      - role: geerlingguy.pip
+      - role: geerlingguy.docker
+      - role: docker-registry

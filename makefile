@@ -34,6 +34,9 @@ restic:
 ubuntu:
 	ansible-playbook -b run.yaml --limit ubuntu --vault-password-file .vault-password
 
+docker-registry:
+	ansible-playbook -b run.yaml --limit docker-registry --vault-password-file .vault-password
+
 update:
 	ansible-playbook update.yaml --vault-password-file .vault-password
 

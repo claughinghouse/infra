@@ -11,7 +11,7 @@ Copy the authorized key into the folder via curl from GitHub or copy and paste.
 
 Assumes Ubuntu 20.04 VM with Ansible user created and ssh key put into authorized_keys
 
-Assumes passwordless `sudo`. Add `$ansible_username ALL=(ALL) NOPASSWD:ALL` to /etc/sudoers
+Assumes passwordless `sudo`. Add `$ansible_username ubuntu ALL=(ALL) NOPASSWD:ALL` to /etc/sudoers
 
 Simulate failure for debugging.
 
